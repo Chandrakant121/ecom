@@ -3,7 +3,8 @@ import NavBar from './components/Navbar'
 import { Routes, Route, Link } from "react-router-dom"
 import Homepae from './Pages/Homepage'
 import Shoppage from './Pages/Shoppage'
-
+//npm run dev
+//son-server db.json --port 8080
 function App() {
 
   return (

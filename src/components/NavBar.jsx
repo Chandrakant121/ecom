@@ -10,11 +10,14 @@ export default function Navbar() {
             bg="white"
             border="0.5px solid white"
         > <Spacer />
-            <Image src='https://cdn.shopify.com/s/files/1/0258/2485/4100/files/flatheads-logo-new-hotizontal_180x_2x_bf74c8db-79f1-4904-b343-3b0e2681ec07_288x46.png?v=1647508945' alt='Dan Abramov'
-                height="20px"
-                margin="20px"
-                fit="contain"
-            />
+
+            <Link to="/">
+                <Image src='https://cdn.shopify.com/s/files/1/0258/2485/4100/files/flatheads-logo-new-hotizontal_180x_2x_bf74c8db-79f1-4904-b343-3b0e2681ec07_288x46.png?v=1647508945' alt='Dan Abramov'
+                    height="20px"
+                    margin="20px"
+                    fit="contain"
+                />
+            </Link>
             <Spacer />
             <Link to="/collections/all">
                 <Text padding="5px" margin="10px" fontWeight="700" color="black">SHOP</Text>
