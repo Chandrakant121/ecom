@@ -9,9 +9,9 @@ import { useParams } from 'react-router-dom';
 
 export default function ProductDetails() {
     const dispatch = useDispatch();
-    const loading = useSelector((state) => state.loading)
-    const error = useSelector((state) => state.error)
-    const currentProduct = useSelector((state) => state.currentProduct)
+    const loading = useSelector((state) => state.product.loading)
+    const error = useSelector((state) => state.product.error)
+    const currentProduct = useSelector((state) => state.product.currentProduct)
     const { id } = useParams()
     // console.log(products)
     // get data from action 
@@ -21,6 +21,14 @@ export default function ProductDetails() {
             dispatch(getCurrentProductData(id))
         }
     }, [dispatch, id])
+
+    const handleCart = () => {
+        let payload = {
+            ...currentProduct, size
+        }
+        // console.log(payload)
+    }
+
     // console.log(product)
     if (loading) {
         return <h1>Loading...</h1>
@@ -45,7 +53,7 @@ export default function ProductDetails() {
                         })
                     }
                 </HStack>
-                <Button bg="yellow" color="black" disabled={!size} m={5} p={8}>
+                <Button bg="yellow" color="black" disabled={!size} m={5} p={8} onClick={handleCart}>
                     {!size ? "Select Size" : "Add To Cart"}
                 </Button>
             </Box>

@@ -8,9 +8,9 @@ import Product from '../components/Product';
 
 export default function Shoppage() {
     const dispatch = useDispatch();
-    const loading = useSelector((state) => state.loading)
-    const error = useSelector((state) => state.error)
-    const products = useSelector((state) => state.products)
+    const loading = useSelector((state) => state.product.loading)
+    const error = useSelector((state) => state.product.error)
+    const products = useSelector((state) => state.product.products)
     // console.log(products)
     // get data from action 
     useEffect(() => {
