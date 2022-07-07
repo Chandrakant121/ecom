@@ -5,6 +5,7 @@ import { Text, Grid, GridItem, Flex, Box, HStack, Button } from '@chakra-ui/reac
 import Filter from '../components/Filter';
 import Product from '../components/Product';
 import { useParams } from 'react-router-dom';
+import { addToCart } from '../Redux/Cart/action';
 
 
 export default function ProductDetails() {
@@ -24,9 +25,11 @@ export default function ProductDetails() {
 
     const handleCart = () => {
         let payload = {
-            ...currentProduct, size
+            ...currentProduct,
+            size
         }
-        // console.log(payload)
+        console.log(payload)
+        dispatch(addToCart(payload))
     }
 
     // console.log(product)
