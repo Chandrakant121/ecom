@@ -17,6 +17,7 @@ export default function ProductDetails() {
     // console.log(products)
     // get data from action 
     const [size, setSize] = useState(null)
+
     useEffect(() => {
         if (id) {
             dispatch(getCurrentProductData(id))
@@ -28,7 +29,7 @@ export default function ProductDetails() {
             ...currentProduct,
             size
         }
-        console.log(payload)
+        // console.log(payload)
         dispatch(addToCart(payload))
     }
 
