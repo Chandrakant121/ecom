@@ -57,7 +57,7 @@ export default function ProductDetails() {
                         })
                     }
                 </HStack>
-                <Button bg="yellow" color="black" disabled={!size} m={5} p={8} onClick={handleCart}>
+                <Button bg="yellow" color="black" disabled={!size} m={1} p={6} onClick={handleCart}>
                     {!size ? "Select Size" : "Add To Cart"}
                 </Button>
             </Box>

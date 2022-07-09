@@ -22,9 +22,9 @@ export default function Product({ product }) {
             onMouseLeave={showOriginalImage}
             onClick={() => navigate(`/collections/all/${id}`)}
         >
-            <Image src={img} alt={name + "shoe"} />
+            <Image src={img} alt={name + "shoe"} marginLeft="90px" />
             <Text>{name + " | " + color + " | " + gender}</Text>
-            <HStack justifyContent="center">
+            <HStack justify="center">
                 <Text>{final_price}</Text>
                 <Text color="gray" as="s">{original_price}</Text>
             </HStack>

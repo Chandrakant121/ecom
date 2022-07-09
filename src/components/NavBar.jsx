@@ -1,52 +1,162 @@
 import React from 'react'
-import { Flex, Spacer, Image, Text, Icon } from '@chakra-ui/react'
+import { Flex, Spacer, Image, Text, Icon, Box } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { BsSearch, BsCart2 } from 'react-icons/bs'
 import { RiUser3Line } from 'react-icons/ri'
-import { useSelector } from 'react-redux/es/exports'
+import { useSelector, useDispatch } from 'react-redux/es/exports'
+import {
+    Drawer,
+    DrawerBody,
+    DrawerFooter,
+    DrawerHeader,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerCloseButton,
+    useDisclosure,
+    Input,
+    Button
+} from '@chakra-ui/react'
+
+import { decreaseQty, increaseQty, removeFromCart } from '../Redux/Cart/action'
+import { cartReducer } from '../Redux/Cart/reducer'
 
 export default function Navbar() {
     const cart = useSelector((state) => state.cart.cart)
+    // console.log(cart)
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const btnRef = React.useRef()
+    const dispatch = useDispatch()
+
+    const handleDecrease = (id, size, qty) => {
+        if (qty > 1) {
+            dispatch(decreaseQty({ id, size }))
+        }
+        else {
+            dispatch(removeFromCart({ id, size }))
+        }
+    }
+
+
+    const handleIncrease = (id, size) => {
+        dispatch(increaseQty({ id, size }))
+    }
+
+    const convertToNumber = (str) => {
+        if (Number(str)) {
+            return Number(str)
+        }
+        let arr = str.includes(",") ? str.split(",") : []
+        let final_str = arr.reduce((a, c) => a + c, "")
+        let result = Number(final_str)
+        return result
+    }
+
+    let total_original_price = 0
+    let total_final_price = 0
+
+    cart.forEach((prod) => {
+        // total_original_price = total_original_price
+        total_original_price += convertToNumber(prod.original_price) * prod.qty
+        total_final_price += convertToNumber(prod.final_price) * prod.qty
+    })
+
     return (
         <Flex
             bg="white"
-            border="0.5px solid white"
-        > <Spacer />
-
+            // borderBottom="0.25px solid #b1b3b5"
+            p={1}
+            fontWeight="bold"
+            align="center"
+            justify="center"
+            wrap="nowrap"
+        >
+            <Spacer />
             <Link to="/">
-                <Image src='https://cdn.shopify.com/s/files/1/0258/2485/4100/files/flatheads-logo-new-hotizontal_180x_2x_bf74c8db-79f1-4904-b343-3b0e2681ec07_288x46.png?v=1647508945' alt='Dan Abramov'
+                <Image src='https://cdn.shopify.com/s/files/1/0258/2485/4100/files/flatheads-logo-new-hotizontal_180x_2x_bf74c8db-79f1-4904-b343-3b0e2681ec07_352x46.png?v=1647508945'
+                    alt='Flat heads icon'
                     height="20px"
-                    margin="20px"
-                    fit="contain"
+                    m={5}
                 />
             </Link>
             <Spacer />
             <Link to="/collections/all">
-                <Text padding="5px" margin="10px" fontWeight="700" color="black">SHOP</Text>
-            </Link>
-
-            <Link to="/collections/all">
-                <Text padding="5px" margin="10px" fontWeight="700" color="black"> WOMEN</Text>
-            </Link>
-
-            <Link to="/collections/all">
-                <Text padding="5px" margin="10px" fontWeight="700" color="black">MEN</Text>
+                <Text px={4} py={2}>SHOP</Text>
             </Link>
             <Link to="/collections/all">
-                <Text padding="5px" margin="10px" fontWeight="700" color="black" >NEW ARRIVALS</Text>
+                <Text px={4} py={2}>WOMEN</Text>
             </Link>
             <Link to="/collections/all">
-                <Text padding="5px" margin="10px" fontWeight="700" color="black" >ABOUT</Text>
+                <Text px={4} py={2}>MEN</Text>
             </Link>
             <Link to="/collections/all">
-                <Text padding="5px" margin="10px" fontWeight="700" color="black" >HELP</Text>
+                <Text px={4} py={2}>NEW ARRIVALS</Text>
+            </Link>
+            <Link to="/collections/all">
+                <Text px={4} py={2}>ABOUT</Text>
+            </Link>
+            <Link to="/collections/all">
+                <Text px={4} py={2}>HELP</Text>
             </Link>
             <Spacer />
-            <Icon padding="5px" margin="10px" height="20px" as={BsSearch} />
-            <Icon padding="5px" margin="10px" height="20px" as={RiUser3Line} />
-            <Icon padding="5px" margin="10px" height="20px" as={BsCart2} />
-            <Text>{cart ? cart.length : 0}</Text>
+            <Icon boxSize="20px" mx={6} as={BsSearch} />
+            <Icon boxSize="20px" mx={6} as={RiUser3Line} />
+            <Flex onClick={onOpen} ref={btnRef} align="center">
+                <Icon boxSize="20px" mx={6} as={BsCart2} />
+                <Text>{cart ? cart.length : 0}</Text>
+            </Flex>
+
             <Spacer />
+            <Drawer
+                isOpen={isOpen}
+                placement='right'
+                onClose={onClose}
+                finalFocusRef={btnRef}
+                size="sm"
+            >
+                <DrawerOverlay />
+                <DrawerContent>
+                    <DrawerCloseButton />
+                    <DrawerHeader>Your Cart ({cart.length})</DrawerHeader>
+
+                    <DrawerBody>
+                        {
+                            cart.length > 0 && cart.map((item) => {
+                                return <Flex key={item.id}>
+                                    <Image src={item.images[0]} boxSize="120px" alt="shoe"></Image>
+                                    <Box>
+                                        <Text casing="lowercase" >{`${item.name} | ${item.color} | ${item.gender}`}</Text>
+                                        <Text>{item.size}</Text>
+                                        <Flex align="center">
+                                            <Button onClick={() => handleDecrease(item.id, item.size, item.qty)} disabled={item.qty == 0} >-</Button>
+                                            <Text>{item.qty}</Text>
+                                            <Button onClick={() => handleIncrease(item.id, item.size)}>+</Button>
+                                        </Flex>
+                                        <Flex justify="flex-end">
+                                            <Text as="s" justify="center">RS. {item.original_price}</Text>
+                                            <Text marginLeft="10px" > RS. {item.final_price}</Text>
+                                        </Flex>
+                                    </Box>
+                                </Flex>
+
+                            })
+                        }
+
+                    </DrawerBody>
+                    <Flex justify="space-between" align="center">
+                        <Text p={3}>Subtotal</Text>
+                        <Flex p={2}>
+                            <Text p={3} as="s">Rs. {total_original_price}</Text>
+                            <Text p={3}>Rs.{total_final_price}</Text>
+                        </Flex>
+                    </Flex>
+
+
+                    <DrawerFooter>
+                        <Button colorScheme="yellow">Proceed To Checkout</Button>
+                    </DrawerFooter>
+                </DrawerContent>
+            </Drawer >
+
         </Flex >
     )
 }
