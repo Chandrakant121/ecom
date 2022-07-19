@@ -1,23 +1,46 @@
-import React from 'react'
-import { useNavigate } from 'react-router-dom'
-import { Flex, Select } from '@chakra-ui/react'
+// http://localhost:8080/products?gender=MEN
 
-export default function Filter() {
-  const navigate = useNavigate()
+import React, { useEffect, useState } from 'react'
+import { Box, Text } from "@chakra-ui/react"
+import { Checkbox, CheckboxGroup, Stack } from '@chakra-ui/react'
+import { useSearchParams } from 'react-router-dom'
+import { fetchData } from '../Redux/products/action'
+import { useDispatch } from 'react-redux'
+
+const Filter = () => {
+
+  const [searchParams, setSearchParams] = useSearchParams()
+  const dispatch = useDispatch()
+  const [genderValue, setgenderValue] = useState(searchParams.getAll("gender") || [])
+
+  const genderHandler = (values) => {
+    console.log(values)
+    setgenderValue(values)
+  }
+  useEffect(() => {
+    if (genderValue) {
+      setSearchParams({ gender: genderValue }, { replace: true })
+      let params = {
+        gender: searchParams.getAll("gender")
+      }
+      dispatch(fetchData(params))
+    }
+  }, [genderValue, setSearchParams, searchParams])
+
   return (
-    // http://localhost:8080/products?gender=MEN
-    <Flex justifyContent="space-around">
-
-      <Select width="200px" alignItems="center" placeholder='GENDER'>
-        <option value='option1'>Men</option>
-        <option value='option2'>Women</option>
-      </Select>
-
-      <Select width="200px" alignItems="center" placeholder='PRICE'>
-        <option value='option1'>Hight-Low</option>
-        <option value='option2'>Low-High</option>
-      </Select>
-
-    </Flex>
+    <Box>
+      <Box>
+        <Text fontSize="2xl" align="center" fontWeight="bold" marginTop={2} >Filters</Text>
+        <Text align="center" fontWeight="bold" margin={2} >Category</Text>
+        <CheckboxGroup colorScheme='green' defaultValue={genderValue} onChange={genderHandler}>
+          <Stack spacing={[1, 5]} direction={['column', 'row']} justifyContent="space-around" fontWeight="bold" >
+            <Checkbox value="MEN'">Men's</Checkbox>
+            <Checkbox value="WOMEN'">Women's</Checkbox>
+          </Stack>
+        </CheckboxGroup>
+      </Box>
+    </Box >
   )
 }
+
+export default Filter
