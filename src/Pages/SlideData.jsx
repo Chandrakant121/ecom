@@ -1,22 +1,22 @@
 export const SlideData = [
     {
         image:
-            "https://images-eu.ssl-images-amazon.com/images/G/31/img22/Fashion/SS22/AFpage/Unrec/Headers/MF-770x270.jpg"
+            "https://cdn.shopify.com/s/files/1/0258/2485/4100/files/KoolTex_banner2.jpg?v=1655047319"
     },
     {
         image:
-            "https://images-na.ssl-images-amazon.com/images/G/31/img19/Fashion/WA19/DressStore_Sobe/updates/Double-hero-pink._CB437954636_.jpg"
+            "https://cdn.shopify.com/s/files/1/0258/2485/4100/files/Softknit_banner1.jpg?v=1655047319"
     },
     {
         image:
-            "https://www.anjalijewellers.in/assets/images/costume-jwellery1.jpg"
+            "https://cdn.shopify.com/s/files/1/0258/2485/4100/files/FH_Banner3jpg_41cafa8d-1e9b-4545-9cd6-fa20b38961b0.jpg?v=1655199681"
     },
     {
         image:
-            "https://image.shutterstock.com/image-vector/equipment-electronics-shop-vector-illustration-260nw-1091103536.jpg"
+            "https://cdn.shopify.com/s/files/1/0258/2485/4100/files/Linen_banner2.jpg?v=1655047319"
     },
     {
         image:
-            "https://c8.alamy.com/comp/2AKGT2Y/electronics-and-devices-promotional-sale-banner-with-full-shopping-cart-technology-and-online-shopping-concept-2AKGT2Y.jpg"
+            "https://cdn.shopify.com/s/files/1/0258/2485/4100/files/Banana_banner1.jpg?v=1655047319"
     }
 ];
