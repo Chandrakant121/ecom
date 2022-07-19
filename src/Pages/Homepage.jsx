@@ -1,5 +1,10 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
+import { Box } from "@chakra-ui/react"
+
+import ImageSlider from "./ImageSlider";
+import { SlideData } from "./SlideData";
+
 
 
 export default function Homepage() {
@@ -9,6 +14,8 @@ export default function Homepage() {
     //Store is empty in console 
 
     return (
-        <div>Homepage</div>
+        <Box w="100%" p={4} color="white" >
+            <ImageSlider slides={SlideData} />
+        </Box>
     )
 }
