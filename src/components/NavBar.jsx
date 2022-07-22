@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { Profiler } from 'react'
 import { Flex, Spacer, Image, Text, Icon, Box } from '@chakra-ui/react'
 import { Link } from 'react-router-dom'
 import { BsSearch, BsCart2 } from 'react-icons/bs'
 import { RiUser3Line } from 'react-icons/ri'
 import { useSelector, useDispatch } from 'react-redux/es/exports'
+import Profile from "./Profile"
 import {
     Drawer,
     DrawerBody,
@@ -99,7 +100,10 @@ export default function Navbar() {
             </Link>
             <Spacer />
             <Icon boxSize="20px" mx={6} as={BsSearch} />
-            <Icon boxSize="20px" mx={6} as={RiUser3Line} />
+
+           
+            <Profile />
+
             <Flex onClick={onOpen} ref={btnRef} align="center">
                 <Icon boxSize="20px" mx={6} as={BsCart2} />
                 <Text>{cart ? cart.length : 0}</Text>
