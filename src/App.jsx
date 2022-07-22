@@ -6,6 +6,7 @@ import Shoppage from './Pages/Shoppage'
 import ProductDetails from './Pages/ProductDetails'
 import Login from './Pages/Login'
 import Signup from "./Pages/Signup"
+import Footer from "./components/Footer"
 //npm run dev
 //json-server db.json --port 8080
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
       </Routes>
+      <Footer />
     </div>
   )
 }
